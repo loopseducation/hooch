@@ -9,22 +9,21 @@ let library = {};
 // or checking a permit!
 let resolveIdentity = function(item){
 
-  if(module.exports.sequelize){
-    // This is an actual Sequelize-model
-    if(item instanceof module.exports.sequelize.Sequelize.Model){
-      return item
-    }else if(item.Model && item.Model instanceof module.exports.sequelize.Sequelize.Model){
-      return item.Model
-    }else if(item instanceof hoochTuple){
+  if(module.exports.sequelize) {
+    if(module.exports.sequelize.Sequelize.Model.isPrototypeOf(item)) {
+      return item.name
+    } else if(item instanceof module.exports.sequelize.Sequelize.Model) {
+      return item.constructor.name
+    } else if(item instanceof hoochTuple) {
       return item.key
-    }else{
+    }else {
       return item
     }
-  }else{
-    if(item instanceof hoochTuple){
+  } else 
+    if(item instanceof hoochTuple) {
       return item.key
-    }else{
-      return item;      
+    } else {
+      return item; 
     }
   }
 }
