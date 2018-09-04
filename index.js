@@ -19,7 +19,7 @@ let resolveIdentity = function(item){
     }else {
       return item
     }
-  } else 
+  } else {
     if(item instanceof hoochTuple) {
       return item.key
     } else {
