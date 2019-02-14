@@ -44,12 +44,24 @@ let permit = ({activity = null, forItem = null, givenThat = null} = {}) => {
   library[activity][identity].push(givenThat)
 }
 
+function OptionsKeyError(){
+  this.error = true
+}
+OptionsKeyError.prototype = Object.create(Error.prototype);
+
+
 let allowed = ({user = user, isAllowedTo = null, forItem = null, options={}} = {}) => {
   if(!user || !isAllowedTo || !forItem){
     throw new Error("hooch#allowed is missing one or more parameters. This is a fatal error due to security concerns.")
   }
 
   // Only forward supported keys to permit
+  if(_.findKey(options, (value, key)=> {
+    return ['transaction'].indexOf(key) < 0 
+  })) {
+    throw new OptionsKeyError("Invalid options key");
+  }
+
   let _options = { transaction:options.transaction }
 
   return Promise.resolve(forItem).then(item => {

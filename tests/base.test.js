@@ -58,4 +58,10 @@ describe('Hooch', function(){
 		})
 	})
 
+	it('should reject bad options keys', function(){
+		assert.throws(function(){
+			hooch.allow({user: "user", isAllowedTo: 'test.options', forItem: '1', options: {invalid:true}})
+		})
+	})
+
 });
