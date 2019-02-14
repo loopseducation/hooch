@@ -2,7 +2,11 @@ let assert 			= require("assert");
 let hooch 			= require('./../index.js')		
 let Sequelize 		= require('sequelize')
 
-let sequelize = new Sequelize('hooch_test', 'hooch', 'hooch');
+let sequelize = new Sequelize('hooch_test', 'hooch', 'hooch', {  username: 'root',
+  password: null,
+  database: 'hooch',
+  host: '127.0.0.1',
+  dialect: 'postgres' });
 
 let Project = sequelize.define('Project', {
 	title: Sequelize.STRING, 

@@ -44,10 +44,14 @@ let permit = ({activity = null, forItem = null, givenThat = null} = {}) => {
   library[activity][identity].push(givenThat)
 }
 
-let allowed = ({user = user, isAllowedTo = null, forItem = null} = {}) => {
+let allowed = ({user = user, isAllowedTo = null, forItem = null, options={}} = {}) => {
   if(!user || !isAllowedTo || !forItem){
     throw new Error("hooch#allowed is missing one or more parameters. This is a fatal error due to security concerns.")
   }
+
+  // Only forward supported keys to permit
+  let _options = { transaction:options.transaction }
+
   return Promise.resolve(forItem).then(item => {
     let identity = resolveIdentity(item);
     if(library[isAllowedTo] && library[isAllowedTo][identity]){
@@ -57,7 +61,7 @@ let allowed = ({user = user, isAllowedTo = null, forItem = null} = {}) => {
     }
   }).spread((item, permits) => {
     return Promise.reduce(permits, function(returnValue, permit){
-      return Promise.resolve(permit(item, user, isAllowedTo)).then(res => {
+      return Promise.resolve(permit(item, user, isAllowedTo, _options)).then(res => {
         assert(typeof(res) === "boolean"); 
         returnValue = res; 
         return returnValue;
