@@ -120,5 +120,6 @@ module.exports = {
   allow: allowed,
   reset: _reset,
   tuple: tupleCreator,
-  AuthorizationError: AuthorizationError
+  AuthorizationError: AuthorizationError,
+  TupleIntegrityError: TupleIntegrityError
 }
