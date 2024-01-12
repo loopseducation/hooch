@@ -1,5 +1,3 @@
-"use strict";
-const _           = require('lodash')
 const Promise     = require('bluebird')
 const assert      = require('assert');
 
@@ -55,12 +53,13 @@ let allowed = ({user = user, isAllowedTo = null, forItem = null, options={}} = {
     throw new Error("hooch#allowed is missing one or more parameters. This is a fatal error due to security concerns.")
   }
 
+  const validOptionKeys = ['transaction'];
   // Only forward supported keys to permit
-  if(_.findKey(options, (value, key)=> {
-    return ['transaction'].indexOf(key) < 0 
-  })) {
-    throw new OptionsKeyError("Invalid options key");
-  }
+  Object.keys(options).forEach((key) => {
+    if (!validOptionKeys.includes(key)) {
+      throw new OptionsKeyError("Invalid options key");
+    }
+  })
 
   let _options = { transaction:options.transaction }
 
