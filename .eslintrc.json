@@ -1,0 +1,47 @@
+{
+  "env": {
+    "browser": true,
+    "node": true,
+    "mocha": true,
+    "es6": true,
+    "commonjs": true,
+    "jquery": true,
+    "jest": true
+  },
+  "extends": ["eslint:recommended", "prettier", "plugin:react/recommended"],
+  "plugins": ["prettier"],
+  "globals": {
+    "Atomics": "readonly",
+    "SharedArrayBuffer": "readonly",
+    "i18n": true,
+    "$empty": true,
+    "Canvallax": true,
+    "Handlebars": true,
+    "logger": true,
+    "config": true,
+    "redis_client": true,
+    "hooch": true,
+    "flash": true,
+    "lunr": true,
+    "Remote": true,
+    "Utils": true,
+    "ContentManager": true,
+    "Panel": true,
+    "CameraTag": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 2018,
+    "sourceType": "module"
+  },
+  "rules": {
+    "prettier/prettier": "error",
+    "no-undef": "warn",
+    "no-control-regex": 0,
+    "react/prop-types": "off"
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  }
+}
